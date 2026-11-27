@@ -14,24 +14,31 @@ function About() {
 
                 <div className="about-content">
                     <p>
-                        I'm Ugwoegbu Chidera, a Full-Stack Developer
-                        passionate about building modern web applications
-                        that solve real-world problems.
+                        Hi, I'm Ugwoegbu Chidera. I'm a developer who enjoys
+                        figuring out how things work and turning ideas into
+                        something people can actually use. I've spent the past
+                        four years learning, building projects and growing as
+                        a developer. What started as curiosity has gradually
+                        become something I'm genuinely passionate about.
                     </p>
 
                     <p>
-                        I work with technologies such as HTML, CSS,
-                        JavaScript, React, Node.js, Express and PostgreSQL
-                        to develop responsive frontend interfaces,
-                        backend services and database-driven applications.
+                        Over time, I've worked with HTML, CSS, JavaScript,
+                        React, Node.js, Express and PostgreSQL, building
+                        applications that bring together both frontend and
+                        backend development. I enjoy the process of taking
+                        an idea, breaking it down and working through the
+                        challenges until everything comes together.
                     </p>
 
                     <p>
-                        I enjoy solving technical challenges, learning
-                        new technologies and turning ideas into practical
-                        digital solutions. I'm continuously improving
-                        my skills and looking forward to building
-                        impactful software.
+                        I'm still growing, and I believe there's always
+                        something new to learn. I've also had opportunities
+                        to work with people and understand the importance
+                        of communication, collaboration and being open to
+                        different ideas. I'm looking forward to learning
+                        from others, contributing to meaningful projects
+                        and becoming a better developer along the way.
                     </p>
                 </div>
 
