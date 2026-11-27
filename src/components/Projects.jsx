@@ -1,5 +1,6 @@
 import financeImage from '../assets/finance.png'
 import sectorImage from '../assets/bookimage.jpg'
+import ticketImage from '../assets/ticket.png'
 
 import '../css/projects.css'
 
@@ -19,6 +20,46 @@ function Projects() {
                 </div>
 
                 <div className="projects-content">
+
+                    <div className="project-card">
+                        <div className="project-image">
+                            <img src={ticketImage} alt="Ticket Generator" />
+                        </div>
+
+                        <div className="project-info">
+                            <h3>Ticket Generator</h3>
+
+                            <p>
+                                A web application that allows users to generate
+                                personalized event tickets with a simple and
+                                interactive interface.
+                            </p>
+
+                            <div className="project-tech">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+
+                            <div className="project-links">
+                                <a
+                                    href="https://ticket-generator-zw67.onrender.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Live Demo
+                                </a>
+
+                                <a
+                                    href="https://github.com/Henry-ben/ticket-generator"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    View Source
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div className="project-card">
                         <div className="project-image">
