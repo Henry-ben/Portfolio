@@ -1,46 +1,204 @@
+
 .footer {
-    padding: 25px 8%;
-    background-color: #171619;
-    color: #c5c2c9;
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.footer-content p {
-    font-size: 14px;
-}
-
-.footer-links {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.footer-links a {
-    color: #80c9d1;
-    font-size: 14px;
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
+    padding: 45px 8% 25px;
+    background: #171619;
     color: #ffffff;
 }
 
-@media (max-width: 600px) {
-    .footer-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
+.footer-container {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* TOP SECTION */
+
+.footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    padding-bottom: 40px;
+}
+
+/* BRAND */
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-logo {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #80c9d1, #2f7f7b);
+    color: #201f23;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 900;
+    box-shadow: 0 5px 18px rgba(128, 201, 209, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.footer-logo:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 9px 24px rgba(128, 201, 209, 0.3);
+}
+
+.footer-logo span {
+    color: #ffffff;
+}
+
+.footer-brand h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.footer-brand p {
+    color: #99969f;
+    font-size: 12px;
+}
+
+/* NAVIGATION */
+
+.footer-navigation,
+.footer-socials {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 22px;
+}
+
+.footer-navigation a,
+.footer-socials a {
+    position: relative;
+    color: #c5c2c9;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-navigation a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: #80c9d1;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+.footer-navigation a:hover::after {
+    width: 100%;
+}
+
+.footer-navigation a:hover,
+.footer-socials a:hover {
+    color: #80c9d1;
+}
+.footer-socials a {
+    padding: 9px 14px;
+    border: 1px solid #35343a;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.footer-socials a:hover {
+    color: #80c9d1;
+    border-color: #80c9d1;
+    background: rgba(128, 201, 209, 0.08);
+    transform: translateY(-3px);
+}
+/* BOTTOM SECTION */
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+    color: #99969f;
+    font-size: 12px;
+}
+
+/* TABLET */
+
+@media (max-width: 950px) {
+    .footer-top {
+        flex-wrap: wrap;
     }
 
-    .footer-links {
-        justify-content: center;
+    .footer-navigation {
+        order: 3;
+        width: 100%;
+        padding-top: 15px;
     }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    .footer {
+        padding: 40px 6% 25px;
+    }
+
+    .footer-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+    }
+
+    .footer-navigation {
+        order: initial;
+        gap: 18px;
+    }
+
+    .footer-socials {
+        gap: 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+    .footer-navigation a,
+    .footer-socials a {
+        transition: none;
+    }
+}
+
+/* FOOTER SCROLL REVEAL */
+
+.footer .footer-top {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.footer .footer-bottom {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s ease 0.2s, transform 0.9s ease 0.2s;
+}
+
+.footer.footer-visible .footer-top,
+.footer.footer-visible .footer-bottom {
+    opacity: 1;
+    transform: translateY(0);
 }

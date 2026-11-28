@@ -1,154 +1,222 @@
-import financeImage from '../assets/finance.png'
-import sectorImage from '../assets/bookimage.jpg'
-import ticketImage from '../assets/ticket.png'
 
-import '../css/projects.css'
+import { useEffect, useRef, useState } from 'react';
 
+import financeImage from '../assets/finance.png';
+import sectorImage from '../assets/bookimage.jpg';
+import ticketImage from '../assets/ticket.png';
+
+import '../css/projects.css';
 
 function Projects() {
+    const projectsRef = useRef(null);
+
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [slideDirection, setSlideDirection] = useState('next');
+
+    const projects = [
+        {
+            title: "Personal Finance Dashboard",
+            category: "01 / FULL-STACK APPLICATION",
+            image: financeImage,
+            alt: "Personal Finance Dashboard preview",
+            description:
+                "A full-stack finance application for managing transactions, budgets, savings pots and recurring bills. Built to help users understand and manage their personal finances.",
+            technologies: ["React", "Express", "PostgreSQL"],
+            live: "https://pfapp-frontend.onrender.com/",
+            github: "https://github.com/Henry-ben/PFApp",
+        },
+        {
+            title: "Epp Bookstore",
+            category: "02 / E-COMMERCE",
+            image: sectorImage,
+            alt: "Epp Bookstore preview",
+            description:
+                "An online bookstore with user authentication, shopping cart, order management and payment integration.",
+            technologies: ["React", "Express", "PostgreSQL", "Paystack"],
+            live: "https://epp-front.onrender.com/",
+            github: "https://github.com/Henry-ben/Bookstore",
+        },
+        {
+            title: "Ticket Generator",
+            category: "03 / WEB APPLICATION",
+            image: ticketImage,
+            alt: "Ticket Generator preview",
+            description:
+                "A web application that allows users to generate personalized event tickets with a simple and interactive interface.",
+            technologies: ["HTML", "CSS", "JavaScript"],
+            live: "https://ticket-generator-zw67.onrender.com",
+            github: "https://github.com/Henry-ben/ticket-generator",
+        },
+    ];
+
+    // SCROLL REVEAL
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('projects-visible');
+                } else {
+                    entry.target.classList.remove('projects-visible');
+                }
+            },
+            {
+                threshold: 0.2,
+            }
+        );
+
+        if (projectsRef.current) {
+            observer.observe(projectsRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
+    // NEXT PROJECT
+    const nextProject = () => {
+        setSlideDirection('next');
+
+        setCurrentIndex((prevIndex) =>
+            (prevIndex + 1) % projects.length
+        );
+    };
+
+    // PREVIOUS PROJECT
+    const previousProject = () => {
+        setSlideDirection('previous');
+
+        setCurrentIndex((prevIndex) =>
+            (prevIndex - 1 + projects.length) % projects.length
+        );
+    };
+
+    // AUTOMATIC SLIDING
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setSlideDirection('next');
+
+            setCurrentIndex((prevIndex) =>
+                (prevIndex + 1) % projects.length
+            );
+        }, 5000);
+
+        return () => clearTimeout(timer);
+    }, [currentIndex, projects.length]);
+
     return (
-        <section id="projects">
+        <section id="projects" ref={projectsRef}>
             <div className="projects-container">
 
+                {/* HEADING */}
                 <div className="projects-heading">
-                    <p>MY RECENT WORK</p>
-                    <h2>Featured Projects</h2>
+                    <p>SELECTED WORK</p>
+
+                    <h2>
+                        Things I've <span>Built.</span>
+                    </h2>
+
                     <span>
-                        Some of the applications I've built
-                        using modern web technologies.
+                        A collection of projects where I've
+                        turned ideas into functional applications.
                     </span>
                 </div>
 
+                {/* PROJECT SLIDER */}
                 <div className="projects-content">
-
-                    <div className="project-card">
+                    <div
+                        className={`project-card slide-card ${
+                            slideDirection === 'next'
+                                ? 'slide-next'
+                                : 'slide-previous'
+                        }`}
+                        key={currentIndex}
+                    >
                         <div className="project-image">
-                            <img src={ticketImage} alt="Ticket Generator" />
+                            <img
+                                src={projects[currentIndex].image}
+                                alt={projects[currentIndex].alt}
+                            />
                         </div>
 
                         <div className="project-info">
-                            <h3>Ticket Generator</h3>
+                            <div className="project-meta">
+                                <span>
+                                    {projects[currentIndex].category}
+                                </span>
+                            </div>
+
+                            <h3>
+                                {projects[currentIndex].title}
+                            </h3>
 
                             <p>
-                                A web application that allows users to generate
-                                personalized event tickets with a simple and
-                                interactive interface.
+                                {projects[currentIndex].description}
                             </p>
 
                             <div className="project-tech">
-                                <span>HTML</span>
-                                <span>CSS</span>
-                                <span>JavaScript</span>
+                                {projects[currentIndex].technologies.map(
+                                    (tech) => (
+                                        <span key={tech}>
+                                            {tech}
+                                        </span>
+                                    )
+                                )}
                             </div>
 
                             <div className="project-links">
                                 <a
-                                    href="https://ticket-generator-zw67.onrender.com"
+                                    href={projects[currentIndex].live}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    Live Demo
+                                    Live Demo ↗
                                 </a>
 
                                 <a
-                                    href="https://github.com/Henry-ben/ticket-generator"
+                                    href={projects[currentIndex].github}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    View Source
+                                    Source Code ↗
                                 </a>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div className="project-card">
-                        <div className="project-image">
-                            <img src={financeImage} alt=" Finance Dashboard" />
-                        </div>
+                {/* SLIDER CONTROLS */}
+                <div className="projects-controls">
+                    <button
+                        type="button"
+                        onClick={previousProject}
+                        aria-label="Previous project"
+                    >
+                        ←
+                    </button>
 
-                        <div className="project-info">
-                            <h3>Personal Finance Dashboard</h3>
+                    <span>
+                        {String(currentIndex + 1).padStart(2, '0')}
+                        {' / '}
+                        {String(projects.length).padStart(2, '0')}
+                    </span>
 
-                            <p>
-                                A full-stack finance application
-                                for managing transactions, budgets,
-                                savings pots and recurring bills.
-                            </p>
+                    <button
+                        type="button"
+                        onClick={nextProject}
+                        aria-label="Next project"
+                    >
+                        →
+                    </button>
+                </div>
 
-                            <div className="project-tech">
-                                <span>React</span>
-                                <span>Express</span>
-                                <span>PostgreSQL</span>
-                            </div>
-
-                            <div className="project-links">
-                                <a
-                                    href="https://pfapp-frontend.onrender.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    Live Demo
-                                </a>
-
-                                <a
-                                    href="https://github.com/Henry-ben/PFApp.git"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    View Source
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="project-card">
-                        <div className="project-image">
-                            <img src={sectorImage} alt="SECTOR Bookstore" />
-                        </div>
-
-                        <div className="project-info">
-                            <h3>Epp Bookstore</h3>
-
-                            <p>
-                                An online bookstore with user
-                                authentication, shopping cart,
-                                order management and payment
-                                integration.
-                            </p>
-
-                            <div className="project-tech">
-                                <span>React</span>
-                                <span>Express</span>
-                                <span>PostgreSQL</span>
-                                <span>Paystack</span>
-                            </div>
-
-                            <div className="project-links">
-                                <a
-                                    href="https://epp-front.onrender.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    Live Demo
-                                </a>
-
-                                <a
-                                    href="https://github.com/Henry-ben/Bookstore.git"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    View Source
-                                </a>
-                            </div>
-                            
-                        </div>
-                    </div>
-
+                {/* FOOTER */}
+                <div className="projects-footer">
+                    <span></span>
+                    <p>MORE IDEAS. MORE BUILDING. MORE TO COME.</p>
                 </div>
 
             </div>
         </section>
-    )
+    );
 }
 
-export default Projects
+export default Projects;
